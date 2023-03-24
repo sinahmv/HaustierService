@@ -33,7 +33,7 @@ class DatabaseFactory {
     async _createDemoData() {
         //// TODO: Methode anpassen, um zur eigenen App passende Demodaten anzulegen ////
         //// oder die Methode ggf. einfach löschen und ihren Aufruf oben entfernen.  ////
-        let examples = this.database.collection("example");
+        let examples = this.database.collection("pets");
 
         if (await examples.estimatedDocumentCount() === 0) {
             examples.insertMany([

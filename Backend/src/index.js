@@ -11,6 +11,7 @@ import RootController from "./controller/root.controller.js";
 // Verzeichnisnamen der Quellcodedatei ermitteln
 import path from "path";
 import { fileURLToPath } from "url";
+import PetController from "./controller/pet.controller.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /* =============================================================================
@@ -92,6 +93,7 @@ server.use(OpenApiEnforcerMiddleware(openApiEnforcer));
 // HTTP-Controller registrieren
 //// TODO: Weitere Controller-Klassen hinzufügen ////
 new RootController(server, "/");
+new PetController(server, "/pet")
 
 // Server tatsächlich starten
 server.listen(config.port, config.host, function() {
