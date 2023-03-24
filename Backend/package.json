@@ -5,10 +5,10 @@
       "Feld 'author' anpassen mit den richtigen Autoren des Services",
       "Den Abschnitt __TODO__ hier wieder löschen. :-)"
   ],
-  "name": "myapp-backend",
+  "name": "haustierservice-backend",
   "version": "1.0.0",
-  "description": "Meine App: Backend",
-  "author": "Erika Musterfrau",
+  "description": "HaustierService: Backend",
+  "author": "Sinah Müller-Vietinghoff",
   "license": "CC-BY-4.0",
   "main": "src/index.js",
   "type": "module",

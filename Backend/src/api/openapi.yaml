@@ -1,66 +1,149 @@
-openapi: 3.0.0
+---
+openapi: 3.0.2
 info:
-  title: MyAPP
-  description: "__ TODO: Diese Datei durch eine eigene API-Spezifikation ersetzen. __"
+  title: HaustierService
+  version: 1.0.0
+  description: "Der Haustierservice nutzt einen simplen REST-Webservice zur Kommunikation\
+    \ mit dem Backend. Es können Haustiere gesucht, angelegt, bearbeitet und gelö\
+    scht werden. Dabei sind zu einem Haustier der Name, die Tierart und das Geburtsdatum\
+    \ angegeben."
   contact:
-    name: Dennis Schulmeister-Zimolong
-    url: https://www.wpvs.de
-    email: dhbw@windows3.de
+    name: "Sinah Müller-Vietinghoff, Sina Melder, Joelle Hartmann"
+    email: sinah.mv@gmail.com
   license:
-    name: CC-BY-4.0
-    url: https://creativecommons.org/licenses/by/4.0/deed.de
-  version: "1.0"
-servers:
-- url: http://localhost:3000
-tags:
-- name: Beispiel
+    name: The Unlicense
+    url: http://unlicense.org
 paths:
-  /:
+  /pet:
+    summary: Liste von Haustieren
+    description: "Hier können Haustiere gesucht, aufgelistet und angelegt werden."
     get:
-      tags:
-      - Index
-      summary: Wurzeladresse des Webservices
-      description: Liefert eine HATEOAS-Übersicht aller collections
-      operationId: index
       responses:
         "200":
-          description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/HATEOAS_Collection'
-                x-content-type: application/json
-
+                  $ref: '#/components/schemas/Pet'
+          description: Successful response - returns an array of `Pet` entities.
+      operationId: getPets
+      summary: List All Pets
+      description: Gets a list of all `Pet` entities.
+    post:
+      requestBody:
+        description: A new `Pet` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+        required: true
+      responses:
+        "201":
+          description: Successful response.
+      operationId: createPet
+      summary: Create a Pet
+      description: Creates a new instance of a `Pet`.
+    parameters:
+    - name: name
+      description: Name
+      schema:
+        type: string
+      in: query
+    - name: animalType
+      description: Tierart
+      schema:
+        type: string
+      in: query
+    - name: birthday
+      description: Geburtsdatum
+      schema:
+        type: string
+      in: query
+  /pet/{petId}:
+    summary: Path used to manage a single Pet.
+    description: "The REST endpoint/path used to get, update, and delete single instances\
+      \ of an `Pet`.  This path contains `GET`, `PUT`, and `DELETE` operations used\
+      \ to perform the get, update, and delete tasks, respectively."
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+          description: Successful response - returns a single `Pet`.
+      operationId: getPet
+      summary: Get a Pet
+      description: Gets the details of a single instance of a `Pet`.
+    put:
+      requestBody:
+        description: Updated `Pet` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+        required: true
+      responses:
+        "202":
+          description: Successful response.
+      operationId: updatePet
+      summary: Update a Pet
+      description: Updates an existing `Pet`.
+    delete:
+      responses:
+        "204":
+          description: Successful response.
+      operationId: deletePet
+      summary: Delete a Pet
+      description: Deletes an existing `Pet`.
+    patch:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+        required: false
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+          description: OK
+    parameters:
+    - name: petId
+      description: A unique identifier for a `Pet`.
+      schema:
+        type: string
+      in: path
+      required: true
 components:
   schemas:
-    HATEOAS_Collection:
-      title: HATEOAS-Links einer Collection
+    Pet:
+      title: Root Type for Pet
+      description: Eintrag eines Haustiers
       type: object
       properties:
-        _name:
+        _id:
           type: string
-        query:
-          $ref: '#/components/schemas/HATEOAS_Link'
-        create:
-          $ref: '#/components/schemas/HATEOAS_Link'
-
-    HATEOAS_Resource:
-      title: HATEOAS-Links einer Resource
-      type: object
-      properties:
-        read:
-          $ref: '#/components/schemas/HATEOAS_Link'
-        update:
-          $ref: '#/components/schemas/HATEOAS_Link'
-        patch:
-          $ref: '#/components/schemas/HATEOAS_Link'
-        delete:
-          $ref: '#/components/schemas/HATEOAS_Link'
-
+        name:
+          type: string
+        animalType:
+          type: string
+        birthday:
+          type: string
+        _links:
+          $ref: '#/components/schemas/HATEOAS_Resource'
+          description: ""
+      example:
+        _id: 641c21f78aff8d25414b1ef6
+        name: Willy
+        animalType: Hund
+        birthday: 10.10.2012
     HATEOAS_Link:
-      title: HATEOAS-Link
+      title: Root Type for HATEOAS_Link
+      description: HATEOAS-Link
       type: object
       properties:
         url:
@@ -71,5 +154,45 @@ components:
           type: array
           items:
             type: string
-
-  securitySchemes: {}
+      example:
+        url: /pet
+        method: GET
+        query_params:
+        - id
+        - name
+    HATEOAS_Resource:
+      title: Root Type for HATEOAS_Resource
+      description: HATEOAS-Links einer Resource
+      type: object
+      properties:
+        read:
+          $ref: '#/components/schemas/HATEOAS_Link'
+        update:
+          $ref: '#/components/schemas/HATEOAS_Link'
+        patch:
+          $ref: '#/components/schemas/HATEOAS_Link'
+        delete:
+          $ref: '#/components/schemas/HATEOAS_Link'
+      example:
+        read: ""
+        update: ""
+        patch: ""
+        delete: ""
+    HATEOAS_Collection:
+      title: Root Type for HATEOAS_Collection
+      description: HATEOAS-Links einer Collection
+      type: object
+      properties:
+        query:
+          $ref: '#/components/schemas/HATEOAS_Link'
+        create:
+          $ref: '#/components/schemas/HATEOAS_Link'
+        _name:
+          type: string
+      example:
+        name: Haustiere
+        query: ""
+        create: ""
+tags:
+- name: Haustier
+  description: Haustiereinträge
