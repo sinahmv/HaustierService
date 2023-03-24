@@ -5,9 +5,9 @@ import {wrapHandler} from "../utils.js";
 import RestifyError from "restify-errors";
 
 /**
- * HTTP-Controller-Klasse für Adressbucheinträge. Diese Klasse registriert
+ * HTTP-Controller-Klasse für Haustiereinträge. Diese Klasse registriert
  * alle notwendigen URL-Handler beim Webserver für einen einfachen REST-
- * Webservice zum Lesen und Schreiben von Adressen.
+ * Webservice zum Lesen und Schreiben von Haustiereinträgen.
  */
 export default class PetController {
     /**
@@ -20,11 +20,11 @@ export default class PetController {
         this._service = new PetService();
         this._prefix = prefix;
 
-        // Collection: Adressen
+        // Collection: Haustiere
         server.get(prefix, wrapHandler(this, this.search));
         server.post(prefix, wrapHandler(this, this.create));
 
-        // Entity: Adresse
+        // Entity: Haustier
         server.get(prefix + "/:id", wrapHandler(this, this.read));
         server.put(prefix + "/:id", wrapHandler(this, this.update));
         server.patch(prefix + "/:id", wrapHandler(this, this.update));
@@ -52,8 +52,8 @@ export default class PetController {
     
 
     /**
-     * GET /address
-     * Adressen suchen
+     * GET /pet
+     * Haustier suchen
      */
     async search(req, res, next) {
         let result = await this._service.search(req.query);
@@ -63,8 +63,8 @@ export default class PetController {
     }
 
     /**
-     * POST /address
-     * Neue Adresse anlegen
+     * POST /pet
+     * Neues Haustier anlegen
      */
     async create(req, res, next) {
         let result = await this._service.create(req.body);
@@ -77,8 +77,8 @@ export default class PetController {
         return next();
     }
     /**
-     * GET /address/:id
-     * Adresse auslesen
+     * GET /pet/:id
+     * Haustier auslesen
      */
     async read(req, res, next) {
         let result = await this._service.read(req.params.id);
@@ -94,9 +94,9 @@ export default class PetController {
     }
 
     /**
-     * PUT /address/:id
-     * PATCH /address/:id
-     * Adresse ändern
+     * PUT /pet/:id
+     * PATCH /pet/:id
+     * Haustier ändern
      */
     async update(req, res, next) {
         let result = await this._service.update(req.params.id, req.body);
@@ -112,8 +112,8 @@ export default class PetController {
     }
 
     /**
-     * DELETE /address/:id
-     * Adresse löschen
+     * DELETE /pet/:id
+     * Haustier löschen
      */
     async delete(req, res, next) {
         await this._service.delete(req.params.id)

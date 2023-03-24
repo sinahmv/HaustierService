@@ -74,6 +74,32 @@ class App {
         }
     }
 
+    async _gotoNew() {
+        try {
+            // Dynamischer Import, vgl. https://javascript.info/modules-dynamic-imports
+            let {default: PageNew} = await import("./page-new/page-new.js");
+
+            let page = new PageNew(this);
+            await page.init();
+            this._showPage(page, "new");
+        } catch (ex) {
+            this.showException(ex);
+        }
+    }
+
+    async _gotoEdit() {
+        try {
+            // Dynamischer Import, vgl. https://javascript.info/modules-dynamic-imports
+            let {default: PageEdit} = await import("./page-edit/page-edit.js");
+
+            let page = new PageEdit(this);
+            await page.init();
+            this._showPage(page, "edit");
+        } catch (ex) {
+            this.showException(ex);
+        }
+    }
+
     /**
      * Interne Methode zum Umschalten der sichtbaren Seite.
      *

@@ -4,9 +4,9 @@ import DatabaseFactory from "../database.js";
 import {ObjectId} from "mongodb";
 
 /**
- * Geschäftslogik zur Verwaltung von Adressen. Diese Klasse implementiert die
+ * Geschäftslogik zur Verwaltung von Haustieren. Diese Klasse implementiert die
  * eigentliche Anwendungslogik losgelöst vom technischen Übertragungsweg.
- * Die Adressen werden der Einfachheit halber in einer MongoDB abgelegt.
+ * Die Haustiere werden der Einfachheit halber in einer MongoDB abgelegt.
  */
 export default class PetService {
     /**
@@ -17,7 +17,7 @@ export default class PetService {
     }
 
     /**
-     * Adressen suchen. Unterstützt wird lediglich eine ganz einfache Suche,
+     * Haustiere suchen. Unterstützt wird lediglich eine ganz einfache Suche,
      * bei der einzelne Felder auf exakte Übereinstimmung geprüft werden.
      * Zwar unterstützt MongoDB prinzipiell beliebig komplexe Suchanfragen.
      * Um das Beispiel klein zu halten, wird dies hier aber nicht unterstützt.
@@ -37,7 +37,7 @@ export default class PetService {
     }
 
     /**
-     * Speichern einer neuen Adresse.
+     * Speichern eines neuen Haustiers.
      *
      * @param {Object} animal Zu speicherndes Haustier
      * @return {Promise} Gespeicherte Haustier
@@ -56,7 +56,7 @@ export default class PetService {
     }
 
     /**
-     * Auslesen einer vorhandenen Adresse anhand ihrer ID.
+     * Auslesen eines vorhandenen Haustiers anhand ihrer ID.
      *
      * @param {String} id ID des gesuchten Tieres
      * @return {Promise} Gefundenes Haustier
@@ -67,7 +67,7 @@ export default class PetService {
     }
 
     /**
-     * Aktualisierung einer Adresse, durch Überschreiben einzelner Felder
+     * Aktualisierung eines Haustiers, durch Überschreiben einzelner Felder
      * oder des gesamten Adressobjekts (ohne die ID).
      *
      * @param {String} id ID der gesuchten Tieres
@@ -91,7 +91,7 @@ export default class PetService {
     }
 
     /**
-     * Löschen einer Adresse anhand ihrer ID.
+     * Löschen eines Haustiers anhand der ID.
      *
      * @param {String} id ID der gesuchten Adresse
      * @return {Promise} Anzahl der gelöschten Datensätze
