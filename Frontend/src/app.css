@@ -32,6 +32,8 @@ html {
         /* http://bg.siteorigin.com/ */
         background-color: #669ac4;
         background-image: url(img/background.png);
+        background-attachment: fixed;
+        background-size: cover;
 
         font-size: 11pt;
     }

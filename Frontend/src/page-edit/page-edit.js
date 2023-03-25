@@ -53,12 +53,12 @@ export default class PageEdit extends Page {
 
         // Bearbeiteten Datensatz laden
         if (this._editId) {
-            this._url = `/address/${this._editId}`;
+            this._url = `/pet/${this._editId}`;
             this._dataset = await this._app.backend.fetch("GET", this._url);
-            this._title = `${this._dataset.first_name} ${this._dataset.last_name}`;
+            this._title = `${this._dataset.name}`;
         } else {
-            this._url = `/address`;
-            this._title = "Adresse hinzufügen";
+            this._url = `/pet`;
+            this._title = "Haustier hinzufügen";
         }
 
         // Platzhalter im HTML-Code ersetzen
@@ -87,7 +87,7 @@ export default class PageEdit extends Page {
         this._dataset._id        = this._editId;
         this._dataset.name = this._nameInput.value.trim();
         this._dataset.animalType  = this._animalTypeInput.value.trim();
-        this._dataset.birthday     = this._birthdayInput.trim();
+        this._dataset.birthday     = this._birthdayInput.value.trim();
 
         if (!this._dataset.name) {
             alert("Geben Sie erst einen Namen ein.");

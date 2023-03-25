@@ -27,10 +27,9 @@ class App {
                 url: "^/$",
                 show: () => this._gotoList()
             },
-            //// TODO: Eigene Routing-Regeln hier in der Mitte einfügen ////
             {
-                url: ".*",
-                show: () => this._gotoList()
+                url: "^/edit/(.*)$",
+                show: matches => this._gotoEdit(matches[1])
             },
         ]);
 
@@ -87,12 +86,12 @@ class App {
         }
     }
 
-    async _gotoEdit() {
+    async _gotoEdit(id) {
         try {
             // Dynamischer Import, vgl. https://javascript.info/modules-dynamic-imports
             let {default: PageEdit} = await import("./page-edit/page-edit.js");
 
-            let page = new PageEdit(this);
+            let page = new PageEdit(this, id);
             await page.init();
             this._showPage(page, "edit");
         } catch (ex) {
