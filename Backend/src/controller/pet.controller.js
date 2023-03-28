@@ -103,7 +103,8 @@ export default class PetController {
 
         if (result) {
             this._insertHateoasLinks(result);
-            res.sendResult(result);
+            res.status(202);
+            res.sendResult(result); 
         } else {
             throw new RestifyError.NotFoundError("Haustier nicht gefunden");
         }
