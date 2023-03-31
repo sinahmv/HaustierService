@@ -118,6 +118,105 @@ paths:
         type: string
       in: path
       required: true
+  /user:
+    summary: Path used to manage the list of users.
+    description: "The REST endpoint/path used to list and create zero or more `User`\
+      \ entities.  This path contains a `GET` and `POST` operation to perform the\
+      \ list and create tasks, respectively."
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+          description: Successful response - returns an array of `User` entities.
+      operationId: getUsers
+      summary: List All Users
+      description: Gets a list of all `User` entities.
+    post:
+      requestBody:
+        description: A new `User` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "201":
+          description: Successful response.
+      operationId: createUser
+      summary: Create a User
+      description: Creates a new instance of a `User`.
+    parameters:
+    - name: first_name
+      description: Vorname
+      schema:
+        type: string
+      in: query
+    - name: last_name
+      description: Nachname
+      schema:
+        type: string
+      in: query
+    - name: birthday
+      description: Geburtsdatum
+      schema:
+        type: string
+      in: query
+  /user/{userId}:
+    summary: Path used to manage a single User.
+    description: "The REST endpoint/path used to get, update, and delete single instances\
+      \ of an `User`.  This path contains `GET`, `PUT`, and `DELETE` operations used\
+      \ to perform the get, update, and delete tasks, respectively."
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: Successful response - returns a single `User`.
+      operationId: getUser
+      summary: Get a User
+      description: Gets the details of a single instance of a `User`.
+    put:
+      requestBody:
+        description: Updated `User` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "202":
+          description: Successful response.
+      operationId: updateUser
+      summary: Update a User
+      description: Updates an existing `User`.
+    delete:
+      responses:
+        "204":
+          description: Successful response.
+      operationId: deleteUser
+      summary: Delete a User
+      description: Deletes an existing `User`.
+    patch:
+      requestBody:
+        content:
+          application/json: {}
+      responses:
+        "200":
+          description: OK
+    parameters:
+    - name: userId
+      description: A unique identifier for a `User`.
+      schema:
+        type: string
+      in: path
+      required: true
 components:
   schemas:
     Pet:
@@ -193,6 +292,27 @@ components:
         name: Haustiere
         query: ""
         create: ""
+    User:
+      title: Root Type for User
+      description: Benutzer des Haustierservice
+      type: object
+      properties:
+        _id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        birthday:
+          type: string
+        _links:
+          $ref: '#/components/schemas/HATEOAS_Resource'
+          description: ""
+      example:
+        _id: 6426b2f99c5dae575ec72a8f
+        firstName: Sinah
+        lastName: Müller-Vietinghoff
+        birthday: 17.07.2001
 tags:
 - name: Haustier
   description: Haustiereinträge

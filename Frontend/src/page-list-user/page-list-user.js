@@ -1,12 +1,12 @@
 "use strict";
 
 import Page from "../page.js";
-import HtmlTemplate from "./page-user.html";
+import HtmlTemplate from "./page-list-user.html";
 
 /**
  * Klasse PageList: Stellt die Listenübersicht zur Verfügung
  */
-export default class UserList extends Page {
+export default class PageListUser extends Page {
     /**
      * Konstruktor.
      *
@@ -34,8 +34,7 @@ export default class UserList extends Page {
         this._title = "Übersicht";
 
         // Platzhalter anzeigen, wenn noch keine Daten vorhanden sind
-        let data = await this._app.backend.fetch("GET", "/pet"); 
-        this._emptyMessageElement = this._mainElement.querySelector(".empty-placeholder");
+        let data = await this._app.backend.fetch("GET", "/user"); 
 
         if (data.length) {
             this._emptyMessageElement.classList.add("hidden");
@@ -54,7 +53,7 @@ export default class UserList extends Page {
             let html = templateHtml;
 
             html = html.replace("$ID$", dataset._id);
-            html = html.replace("$FIRSTNAME$", dataset.firstName);
+            html = html.replace("$FIRSTNAME$", dataset.fistName);
             html = html.replace("$LASTNAME$", dataset.lastName);
             html = html.replace("$BIRTHDAY$", dataset.birthday);
 
@@ -66,7 +65,7 @@ export default class UserList extends Page {
             olElement.appendChild(liElement);
 
             // Event Handler registrieren
-            liElement.querySelector(".action.edit").addEventListener("click", () => location.hash = `#/edit/${dataset._id}`);
+            liElement.querySelector(".action.edit").addEventListener("click", () => location.hash = `#/editUser/${dataset._id}`);
             liElement.querySelector(".action.delete").addEventListener("click", () => this._askDelete(dataset._id));
         }
 
@@ -83,19 +82,18 @@ export default class UserList extends Page {
      */
      async _askDelete(id) {
         // Sicherheitsfrage zeigen
-        let answer = confirm("Soll der ausgewählte Besitzer wirklich gelöscht werden?");
+        let answer = confirm("Soll der User wirklich gelöscht werden?");
         if (!answer) return;
 
         // Datensatz löschen
         try {
-            this._app.backend.fetch("DELETE", `/animal/${id}`); 
+            this._app.backend.fetch("DELETE", `/user/${id}`); 
         } catch (ex) {
             this._app.showException(ex);
             return;
         }
 
         // HTML-Element entfernen
-        this._mainElement.querySelector(`[data-id="${id}"]`)?.remove();
 
         if (this._mainElement.querySelector("[data-id]")) {
             this._emptyMessageElement.classList.add("hidden");

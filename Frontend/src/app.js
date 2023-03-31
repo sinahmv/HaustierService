@@ -32,12 +32,16 @@ class App {
                 show: matches => this._gotoEdit(matches[1])
             },
             {
-                url: "^/user/$",
+                url: "^/user-list/$",
                 show: matches => this._gotoUsers()
             },
             {
                 url: "^/search/$",
                 show: matches => this._gotoSearch()
+            },
+            {
+                url: "^/edit-user/(.*)$",
+                show: matches => this._gotoEditUser(matches[1])
             },
         ]);
 
@@ -110,11 +114,24 @@ class App {
     async _gotoUsers() {
         try {
             // Dynamischer Import, vgl. https://javascript.info/modules-dynamic-imports
-            let {default: PageUser} = await import("./page-user/page-user.js");
+            let {default: PageListUser} = await import("./page-list-user/page-list-user.js");
 
-            let page = new PageUser(this);
+            let page = new PageListUser(this);
             await page.init();
             this._showPage(page, "user");
+        } catch (ex) {
+            this.showException(ex);
+        }
+    }
+
+    async _gotoEditUser(id) {
+        try {
+            // Dynamischer Import, vgl. https://javascript.info/modules-dynamic-imports
+            let {default: PageEditUser} = await import("./page-editUser/page-editUser.js");
+
+            let page = new PageEditUser(this, id);
+            await page.init();
+            this._showPage(page, "editUser");
         } catch (ex) {
             this.showException(ex);
         }

@@ -1,25 +1,34 @@
 "use strict";
 
 import Page from "../page.js";
-import HtmlTemplate from "./page-new.html";
+import HtmlTemplate from "./page-editUser.html";
 
 /**
  * Klasse PageEdit: Stellt die Seite zum Anlegen oder Bearbeiten einer Adresse
  * zur Verfügung.
  */
-export default class PageNew extends Page {
+export default class PageEditUser extends Page {
     /**
      * Konstruktor.
      *
      * @param {App} app Instanz der App-Klasse
      * @param {Integer} editId ID des bearbeiteten Datensatzes
      */
-    constructor(app) {
+    constructor(app, editId) {
         super(app, HtmlTemplate);
 
+        // Bearbeiteter Datensatz
+        this._editId = editId;
+
+        this._dataset = {
+            firstName: "",
+            lastName: "",
+            birthday: "",
+        };
+
         // Eingabefelder
-        this._NameInput = null;
-        this._animalTypeInput     = null;
+        this._firstName = null;
+        this._lastName     = null;
         this._birthdayInput     = null;
     }
 
@@ -42,16 +51,30 @@ export default class PageNew extends Page {
         // HTML-Inhalt nachladen
         await super.init();
 
-        this._url = `/pet`;
-        this._title = "Haustier hinzufügen";
+        // Bearbeiteten Datensatz laden
+        if (this._editId) {
+            this._url = `/user/${this._editId}`;
+            this._dataset = await this._app.backend.fetch("GET", this._url);
+            this._title = `${this._dataset.name}`;
+        } else {
+            this._url = `/user`;
+            this._title = "User hinzufügen";
+        }
+
+        // Platzhalter im HTML-Code ersetzen
+        let html = this._mainElement.innerHTML;
+        html = html.replace("$FIRSTNAME$", this._dataset.firstName);
+        html = html.replace("$LASTNAME$", this._dataset.lastName);
+        html = html.replace("$BIRTHDAY$", this._dataset.birthday);
+        this._mainElement.innerHTML = html;
 
         // Event Listener registrieren
         let saveButton = this._mainElement.querySelector(".action.save");
         saveButton.addEventListener("click", () => this._saveAndExit());
 
         // Eingabefelder zur späteren Verwendung merken
-        this._nameInput = this._mainElement.querySelector("input.name");
-        this._animalTypeInput  = this._mainElement.querySelector("input.animalType");
+        this._firstName = this._mainElement.querySelector("input.firstName");
+        this._lastName  = this._mainElement.querySelector("input.lastName");
         this._birthdayInput    = this._mainElement.querySelector("input.birthday");
     }
 
@@ -62,11 +85,11 @@ export default class PageNew extends Page {
     async _saveAndExit() {
         // Eingegebene Werte prüfen
         this._dataset._id        = this._editId;
-        this._dataset.name = this._nameInput.value.trim();
-        this._dataset.animalType  = this._animalTypeInput.value.trim();
-        this._dataset.birthday     = this._birthdayInput.trim();
+        this._dataset.firstName = this._firstName.value.trim();
+        this._dataset.lastName  = this._lastName.value.trim();
+        this._dataset.birthday     = this._birthdayInput.value.trim();
 
-        if (!this._dataset.name) {
+        if (!this._dataset.firstName) {
             alert("Geben Sie erst einen Namen ein.");
             return;
         }
