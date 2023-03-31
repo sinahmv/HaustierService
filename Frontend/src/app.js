@@ -99,6 +99,19 @@ class App {
         }
     }
 
+    async _gotoUsers() {
+        try {
+            // Dynamischer Import, vgl. https://javascript.info/modules-dynamic-imports
+            let {default: PageEdit} = await import("./page-user/page-user.js");
+
+            let page = new PageUser(this);
+            await page.init();
+            this._showPage(page, "user");
+        } catch (ex) {
+            this.showException(ex);
+        }
+    }
+
     /**
      * Interne Methode zum Umschalten der sichtbaren Seite.
      *
