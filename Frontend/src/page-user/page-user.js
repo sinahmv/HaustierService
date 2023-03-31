@@ -54,8 +54,8 @@ export default class UserList extends Page {
             let html = templateHtml;
 
             html = html.replace("$ID$", dataset._id);
-            html = html.replace("$NAME$", dataset.name);
-            html = html.replace("$ANIMALTYPE$", dataset.animalType);
+            html = html.replace("$FIRSTNAME$", dataset.firstName);
+            html = html.replace("$LASTNAME$", dataset.lastName);
             html = html.replace("$BIRTHDAY$", dataset.birthday);
 
             // Element in die Liste einfügen
@@ -83,7 +83,7 @@ export default class UserList extends Page {
      */
      async _askDelete(id) {
         // Sicherheitsfrage zeigen
-        let answer = confirm("Soll das ausgewählte Haustier wirklich gelöscht werden?");
+        let answer = confirm("Soll der ausgewählte Besitzer wirklich gelöscht werden?");
         if (!answer) return;
 
         // Datensatz löschen
