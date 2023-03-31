@@ -35,6 +35,10 @@ class App {
                 url: "^/user/$",
                 show: matches => this._gotoUsers()
             },
+            {
+                url: "^/search/$",
+                show: matches => this._gotoSearch()
+            },
         ]);
 
         // Fenstertitel merken, um später den Name der aktuellen Seite anzuhängen
@@ -111,6 +115,19 @@ class App {
             let page = new PageUser(this);
             await page.init();
             this._showPage(page, "user");
+        } catch (ex) {
+            this.showException(ex);
+        }
+    }
+
+    async _gotoSearch() {
+        try {
+            // Dynamischer Import, vgl. https://javascript.info/modules-dynamic-imports
+            let {default: PageSearch} = await import("./page-search/page-search.js");
+
+            let page = new PageSearch(this);
+            await page.init();
+            this._showPage(page, "search");
         } catch (ex) {
             this.showException(ex);
         }
