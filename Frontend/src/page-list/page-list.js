@@ -95,7 +95,6 @@ export default class PageList extends Page {
         }
 
         // HTML-Element entfernen
-        this._mainElement.querySelector(`[data-id="${id}"]`)?.remove();
 
         if (this._mainElement.querySelector("[data-id]")) {
             this._emptyMessageElement.classList.add("hidden");

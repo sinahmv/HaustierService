@@ -18,46 +18,45 @@
     }
 
     /* AKTIONSBUTTONS */
-    main .a {
+    div {
         display: flex;
         justify-content: space-between;
-    }
-
-    main .actions > div {
-        padding: 0.5em;
-        margin: 0.5em;
-
-        background-color: #e0e0e0;
-        transition: background-color 0.5s;
-
-        flex: 1;
-        text-align: center;
-    }
-
-    main .actions > div:first-child {
-        margin-left: 0;
-    }
-
-    main .actions > div:last-child {
-        margin-right: 0;
-    }
-
-    main .actions > div:hover {
-        background-color: #f0f0f0;
-        cursor: pointer;
     }
 </style>
 
 <!-- Inhalt der Seite -->
 <main>
     <div>
-    <select>
-        <option>Hund</option>
-        <option>Katze</option>
-        <option>Hase</option>
-        <option>Hamster</option>
-        <option>Schildkröte</option>
-    </select>
+        <select>
+            <option>alle</option>
+            <option>Hund</option>
+            <option>Katze</option>
+            <option>Hase</option>
+            <option>Hausschwein</option>
+            <option>Schildkröte</option>
+        </select>
+    <button type="button" class="click">Suche</button>
     </div>
-    <button type="button">Suche</button>
+
+    <ol>
+        <!-- Platzhalter für eine leere Liste -->
+        <li class="empty-placeholder">
+            <div class="name">
+                Keine Einträge vorhanden
+            </div>
+        </li>
+
+        <!-- Vorlage für einen Eintrag in der Liste -->
+        <li class="list-entry" data-id="$ID$">
+            <div class="name">
+                $NAME$
+            </div>
+            <div class="field animalType">
+                $ANIMALTYPE$
+            </div>
+            <div class="field birthday">
+                $BIRTHDAY$
+            </div>
+        </li>
+    </ol>
 </main>
