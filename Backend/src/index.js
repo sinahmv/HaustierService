@@ -12,6 +12,7 @@ import RootController from "./controller/root.controller.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import PetController from "./controller/pet.controller.js";
+import UserController from "./controller/user.controller.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /* =============================================================================
@@ -93,7 +94,8 @@ server.use(OpenApiEnforcerMiddleware(openApiEnforcer));
 // HTTP-Controller registrieren
 //// TODO: Weitere Controller-Klassen hinzufügen ////
 new RootController(server, "/");
-new PetController(server, "/pet")
+new PetController(server, "/pet");
+new UserController(server, "/user");
 
 // Server tatsächlich starten
 server.listen(config.port, config.host, function() {

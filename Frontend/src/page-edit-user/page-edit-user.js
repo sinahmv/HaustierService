@@ -1,7 +1,7 @@
 "use strict";
 
 import Page from "../page.js";
-import HtmlTemplate from "./page-editUser.html";
+import HtmlTemplate from "./page-edit-user.html";
 
 /**
  * Klasse PageEdit: Stellt die Seite zum Anlegen oder Bearbeiten einer Adresse
@@ -21,8 +21,8 @@ export default class PageEditUser extends Page {
         this._editId = editId;
 
         this._dataset = {
-            firstName: "",
-            lastName: "",
+            first_name: "",
+            last_name: "",
             birthday: "",
         };
 
@@ -55,7 +55,7 @@ export default class PageEditUser extends Page {
         if (this._editId) {
             this._url = `/user/${this._editId}`;
             this._dataset = await this._app.backend.fetch("GET", this._url);
-            this._title = `${this._dataset.name}`;
+            this._title = `${this._dataset.first_name}`;
         } else {
             this._url = `/user`;
             this._title = "User hinzufügen";
@@ -63,8 +63,8 @@ export default class PageEditUser extends Page {
 
         // Platzhalter im HTML-Code ersetzen
         let html = this._mainElement.innerHTML;
-        html = html.replace("$FIRSTNAME$", this._dataset.firstName);
-        html = html.replace("$LASTNAME$", this._dataset.lastName);
+        html = html.replace("$FIRSTNAME$", this._dataset.first_name);
+        html = html.replace("$LASTNAME$", this._dataset.last_name);
         html = html.replace("$BIRTHDAY$", this._dataset.birthday);
         this._mainElement.innerHTML = html;
 
@@ -73,8 +73,8 @@ export default class PageEditUser extends Page {
         saveButton.addEventListener("click", () => this._saveAndExit());
 
         // Eingabefelder zur späteren Verwendung merken
-        this._firstName = this._mainElement.querySelector("input.firstName");
-        this._lastName  = this._mainElement.querySelector("input.lastName");
+        this._firstNameInput = this._mainElement.querySelector("input.firstName");
+        this._lastNameInput  = this._mainElement.querySelector("input.lastName");
         this._birthdayInput    = this._mainElement.querySelector("input.birthday");
     }
 
@@ -85,11 +85,11 @@ export default class PageEditUser extends Page {
     async _saveAndExit() {
         // Eingegebene Werte prüfen
         this._dataset._id        = this._editId;
-        this._dataset.firstName = this._firstName.value.trim();
-        this._dataset.lastName  = this._lastName.value.trim();
+        this._dataset.first_name = this._firstNameInput.value.trim();
+        this._dataset.last_name  = this._lastNameInput.value.trim();
         this._dataset.birthday     = this._birthdayInput.value.trim();
 
-        if (!this._dataset.firstName) {
+        if (!this._dataset.first_name) {
             alert("Geben Sie erst einen Namen ein.");
             return;
         }
@@ -107,6 +107,6 @@ export default class PageEditUser extends Page {
         }
 
         // Zurück zur Übersicht
-        location.hash = "#/";
+        location.hash = "#/user/";
     }
 };

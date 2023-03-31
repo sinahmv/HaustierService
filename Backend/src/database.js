@@ -50,8 +50,8 @@ class DatabaseFactory {
         if (await users.estimatedDocumentCount() === 0) {
             users.insertMany([
                 {
-                    firstName: "Sinah",
-                    lastName: "Müller-Vietinghoff",
+                    first_name: "Sinah",
+                    last_name: "Müller-Vietinghoff",
                     birthday: "17.07.2001",
                 },
             ]);

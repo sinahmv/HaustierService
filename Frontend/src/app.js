@@ -32,7 +32,7 @@ class App {
                 show: matches => this._gotoEdit(matches[1])
             },
             {
-                url: "^/user-list/$",
+                url: "^/user/$",
                 show: matches => this._gotoUsers()
             },
             {
@@ -127,11 +127,11 @@ class App {
     async _gotoEditUser(id) {
         try {
             // Dynamischer Import, vgl. https://javascript.info/modules-dynamic-imports
-            let {default: PageEditUser} = await import("./page-editUser/page-editUser.js");
+            let {default: PageEditUser} = await import("./page-edit-user/page-edit-user.js");
 
             let page = new PageEditUser(this, id);
             await page.init();
-            this._showPage(page, "editUser");
+            this._showPage(page, "edit-user");
         } catch (ex) {
             this.showException(ex);
         }

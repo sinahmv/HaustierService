@@ -1,6 +1,6 @@
 "use strict"
 
-import PetService from "../service/user.service.js";
+import UserService from "../service/user.service.js";
 import {wrapHandler} from "../utils.js";
 import RestifyError from "restify-errors";
 

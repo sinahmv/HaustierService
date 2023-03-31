@@ -35,6 +35,7 @@ export default class PageListUser extends Page {
 
         // Platzhalter anzeigen, wenn noch keine Daten vorhanden sind
         let data = await this._app.backend.fetch("GET", "/user"); 
+        this._emptyMessageElement = this._mainElement.querySelector(".empty-placeholder");
 
         if (data.length) {
             this._emptyMessageElement.classList.add("hidden");
@@ -53,8 +54,8 @@ export default class PageListUser extends Page {
             let html = templateHtml;
 
             html = html.replace("$ID$", dataset._id);
-            html = html.replace("$FIRSTNAME$", dataset.fistName);
-            html = html.replace("$LASTNAME$", dataset.lastName);
+            html = html.replace("$FIRSTNAME$", dataset.first_name);
+            html = html.replace("$LASTNAME$", dataset.last_name);
             html = html.replace("$BIRTHDAY$", dataset.birthday);
 
             // Element in die Liste einfügen
@@ -65,7 +66,7 @@ export default class PageListUser extends Page {
             olElement.appendChild(liElement);
 
             // Event Handler registrieren
-            liElement.querySelector(".action.edit").addEventListener("click", () => location.hash = `#/editUser/${dataset._id}`);
+            liElement.querySelector(".action.edit").addEventListener("click", () => location.hash = `#/edit-user/${dataset._id}`);
             liElement.querySelector(".action.delete").addEventListener("click", () => this._askDelete(dataset._id));
         }
 
@@ -94,7 +95,7 @@ export default class PageListUser extends Page {
         }
 
         // HTML-Element entfernen
-
+        this._mainElement.querySelector(`[data-id="${id}"]`)?.remove();
         if (this._mainElement.querySelector("[data-id]")) {
             this._emptyMessageElement.classList.add("hidden");
         } else {
