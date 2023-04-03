@@ -61,6 +61,9 @@ export default class PageEditAdoption extends Page {
             this._title = "Vermittlung hinzufügen";
         }
 
+        this._pets = await this._app.backend.fetch("GET", "/pet")
+        this._users = await this._app.backend.fetch("GET", "/user")
+
         // Platzhalter im HTML-Code ersetzen
         let html = this._mainElement.innerHTML;
         html = html.replace("$USERNAME$", this._dataset.user_name);
@@ -91,6 +94,39 @@ export default class PageEditAdoption extends Page {
 
         if (!this._dataset.user_name) {
             alert("Geben Sie erst einen Namen ein.");
+            return;
+        }
+
+        if (!this._dataset.pet_name) {
+            alert("Geben Sie erst einen Namen ein.");
+            return;
+        }
+
+        if (!this._dataset.date) {
+            alert("Geben Sie erst ein Datum ein.");
+            return;
+        }
+
+        var userExists = false
+        for (let index in this._users) {
+            let dataset = this._users[index];
+            if(this._dataset.user_name == dataset.first_name){
+                userExists = true
+            }
+        }
+        if(!userExists){
+            alert("Der User " +this._dataset.user_name+" ist nicht bekannt!")
+            return;
+        }
+        var petExists = false
+        for (let index in this._pets) {
+            let dataset = this._pets[index];
+            if(this._dataset.pet_name == dataset.name){
+                petExists = true
+            }
+        }
+        if(!petExists){
+            alert("Dieses Tier " +this._dataset.pet_name+" ist nicht bekannt!")
             return;
         }
 
