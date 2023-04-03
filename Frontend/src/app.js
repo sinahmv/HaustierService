@@ -3,6 +3,7 @@
 import Backend from "./backend.js";
 import Router from "./router.js";
 import "./app.css";
+import PageAdoption from "./page-adoption/page-adoption.js";
 
 /**
  * Hauptklasse App: Steuert die gesamte Anwendung
@@ -36,12 +37,16 @@ class App {
                 show: matches => this._gotoUsers()
             },
             {
-                url: "^/search/$",
-                show: matches => this._gotoSearch()
+                url: "^/adoption/$",
+                show: matches => this._gotoAdoption()
             },
             {
                 url: "^/edit-user/(.*)$",
                 show: matches => this._gotoEditUser(matches[1])
+            },
+            {
+                url: "^/edit-adoption/(.*)$",
+                show: matches => this._gotoEditAdoption(matches[1])
             },
         ]);
 
@@ -137,14 +142,27 @@ class App {
         }
     }
 
-    async _gotoSearch() {
+    async _gotoAdoption() {
         try {
             // Dynamischer Import, vgl. https://javascript.info/modules-dynamic-imports
-            let {default: PageSearch} = await import("./page-search/page-search.js");
+            let {default: PageSearch} = await import("./page-adoption/page-adoption.js");
 
-            let page = new PageSearch(this);
+            let page = new PageAdoption(this);
             await page.init();
-            this._showPage(page, "search");
+            this._showPage(page, "adoption");
+        } catch (ex) {
+            this.showException(ex);
+        }
+    }
+
+    async _gotoEditAdoption(id) {
+        try {
+            // Dynamischer Import, vgl. https://javascript.info/modules-dynamic-imports
+            let {default: PageEditAdoption} = await import("./page-edit-adoption/page-edit-adoption.js");
+
+            let page = new PageEditAdoption(this, id);
+            await page.init();
+            this._showPage(page, "edit-adoption");
         } catch (ex) {
             this.showException(ex);
         }

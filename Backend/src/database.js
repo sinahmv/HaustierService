@@ -56,6 +56,18 @@ class DatabaseFactory {
                 },
             ]);
         }
+
+        let adoptions = this.database.collection("adoptions");
+
+        if (await adoptions.estimatedDocumentCount() === 0) {
+            adoptions.insertMany([
+                {
+                    user_name: "Sinah",
+                    pet_name: "Willy",
+                    date: "03.04.2023",
+                },
+            ]);
+        }
     }
 }
 

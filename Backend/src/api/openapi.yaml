@@ -217,6 +217,107 @@ paths:
         type: string
       in: path
       required: true
+  /adoption:
+    summary: Path used to manage the list of adoptions.
+    description: "The REST endpoint/path used to list and create zero or more `Adoption`\
+      \ entities.  This path contains a `GET` and `POST` operation to perform the\
+      \ list and create tasks, respectively."
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Adoption'
+          description: Successful response - returns an array of `Adoption` entities.
+      operationId: getAdoptions
+      summary: List All Adoptions
+      description: Gets a list of all `Adoption` entities.
+    post:
+      requestBody:
+        description: A new `Adoption` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Adoption'
+        required: true
+      responses:
+        "201":
+          description: Successful response.
+      operationId: createAdoption
+      summary: Create a Adoption
+      description: Creates a new instance of a `Adoption`.
+    parameters:
+    - name: user_name
+      description: Name des neuen Besitzers
+      schema:
+        type: string
+      in: query
+    - name: pet_name
+      description: Name des Tieres
+      schema:
+        type: string
+      in: query
+    - name: date
+      description: Datum
+      schema:
+        type: string
+      in: query
+  /adoption/{adoptionId}:
+    summary: Path used to manage a single Adoption.
+    description: "The REST endpoint/path used to get, update, and delete single instances\
+      \ of an `Adoption`.  This path contains `GET`, `PUT`, and `DELETE` operations\
+      \ used to perform the get, update, and delete tasks, respectively."
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Adoption'
+          description: Successful response - returns a single `Adoption`.
+      operationId: getAdoption
+      summary: Get a Adoption
+      description: Gets the details of a single instance of a `Adoption`.
+    put:
+      requestBody:
+        description: Updated `Adoption` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Adoption'
+        required: true
+      responses:
+        "202":
+          description: Successful response.
+      operationId: updateAdoption
+      summary: Update a Adoption
+      description: Updates an existing `Adoption`.
+    delete:
+      responses:
+        "204":
+          description: Successful response.
+      operationId: deleteAdoption
+      summary: Delete a Adoption
+      description: Deletes an existing `Adoption`.
+    patch:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Adoption'
+      responses:
+        "200":
+          description: OK
+    parameters:
+    - name: adoptionId
+      description: A unique identifier for a `Adoption`.
+      schema:
+        type: string
+      in: path
+      required: true
 components:
   schemas:
     Pet:
@@ -313,6 +414,29 @@ components:
         firstName: Sinah
         lastName: Müller-Vietinghoff
         birthday: 17.07.2001
+    Adoption:
+      title: Root Type for Adoption
+      description: Eintrag einer Vermittlung
+      type: object
+      properties:
+        user_name:
+          type: string
+        pet_name:
+          type: string
+        date:
+          type: string
+        _id:
+          type: string
+        _links:
+          $ref: '#/components/schemas/HATEOAS_Resource'
+          description: ""
+      example:
+        id: 642ac3c253b7f0dea275dfdc
+        user_name: Sinah
+        pet_name: Willy
+        date: 03.04.2023
 tags:
 - name: Haustier
   description: Haustiereinträge
+- name: User
+  description: Benutzereinträge

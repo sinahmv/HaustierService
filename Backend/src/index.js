@@ -13,6 +13,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import PetController from "./controller/pet.controller.js";
 import UserController from "./controller/user.controller.js";
+import AdoptionController from "./controller/adoption.controller.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /* =============================================================================
@@ -96,6 +97,7 @@ server.use(OpenApiEnforcerMiddleware(openApiEnforcer));
 new RootController(server, "/");
 new PetController(server, "/pet");
 new UserController(server, "/user");
+new AdoptionController(server, "/adoption");
 
 // Server tatsächlich starten
 server.listen(config.port, config.host, function() {
