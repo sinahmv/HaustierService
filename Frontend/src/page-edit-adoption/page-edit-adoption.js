@@ -126,7 +126,7 @@ export default class PageEditAdoption extends Page {
             }
         }
         if(!petExists){
-            alert("Dieses Tier " +this._dataset.pet_name+" ist nicht bekannt!")
+            alert("Das Tier " +this._dataset.pet_name+" ist nicht bekannt!")
             return;
         }
 
