@@ -55,7 +55,7 @@ export default class PageEditAdoption extends Page {
         if (this._editId) {
             this._url = `/adoption/${this._editId}`;
             this._dataset = await this._app.backend.fetch("GET", this._url);
-            this._title = `${this._dataset.first_name}`;
+            this._title = `${this._dataset.user_name}`; //first_name
         } else {
             this._url = `/adoption`;
             this._title = "Vermittlung hinzufügen";
@@ -89,7 +89,7 @@ export default class PageEditAdoption extends Page {
         this._dataset.pet_name  = this._petNameInput.value.trim();
         this._dataset.date     = this._dateInput.value.trim();
 
-        if (!this._dataset.first_name) {
+        if (!this._dataset.user_name) {
             alert("Geben Sie erst einen Namen ein.");
             return;
         }

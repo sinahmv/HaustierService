@@ -13,7 +13,7 @@ export default class AdoptionService {
      * Konstruktor.
      */
     constructor() {
-        this._users = DatabaseFactory.database.collection("adoptions");
+        this._adoptions = DatabaseFactory.database.collection("adoptions");
     }
 
     /**
@@ -26,7 +26,7 @@ export default class AdoptionService {
      * @return {Promise} Liste der gefundenen Adressen
      */
     async search(query) {
-        let cursor = this._users.find(query, {
+        let cursor = this._adoptions.find(query, {
             sort: {
                 user_name: 1,
                 pet_name: 1,
