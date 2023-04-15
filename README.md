@@ -1,1 +1,1 @@
-Lösungsvorschlag der praktischen Portfolioaufgabe von Joelle Hartmann, Sina Melder und Sinah Caroline Müller-Vietignhoff
+Lösungsvorschlag der praktischen Portfolioaufgabe von Joelle Hartmann, Sina Melder und Sinah Caroline Müller-Vietinghoff
