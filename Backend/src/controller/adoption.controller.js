@@ -5,7 +5,7 @@ import {wrapHandler} from "../utils.js";
 import RestifyError from "restify-errors";
 
 /**
- * HTTP-Controller-Klasse für Haustiereinträge. Diese Klasse registriert
+ * HTTP-Controller-Klasse für Adoptionseinträge. Diese Klasse registriert
  * alle notwendigen URL-Handler beim Webserver für einen einfachen REST-
  * Webservice zum Lesen und Schreiben von Haustiereinträgen.
  */
@@ -20,7 +20,7 @@ export default class AdoptionController {
         this._service = new AdoptionService();
         this._prefix = prefix;
 
-        // Collection: USer
+        // Collection: User
         server.get(prefix, wrapHandler(this, this.search));
         server.post(prefix, wrapHandler(this, this.create));
 
@@ -52,8 +52,7 @@ export default class AdoptionController {
     
 
     /**
-     * GET /pet
-     * Haustier suchen
+     * Adoption suchen
      */
     async search(req, res, next) {
         let result = await this._service.search(req.query);
@@ -63,8 +62,7 @@ export default class AdoptionController {
     }
 
     /**
-     * POST /pet
-     * Neues Haustier anlegen
+     * Neue Adoption anlegen
      */
     async create(req, res, next) {
         let result = await this._service.create(req.body);
@@ -77,8 +75,7 @@ export default class AdoptionController {
         return next();
     }
     /**
-     * GET /pet/:id
-     * Haustier auslesen
+     * Adoption auslesen
      */
     async read(req, res, next) {
         let result = await this._service.read(req.params.id);
@@ -94,9 +91,7 @@ export default class AdoptionController {
     }
 
     /**
-     * PUT /pet/:id
-     * PATCH /pet/:id
-     * Haustier ändern
+     * Adoption ändern
      */
     async update(req, res, next) {
         let result = await this._service.update(req.params.id, req.body);
@@ -113,8 +108,7 @@ export default class AdoptionController {
     }
 
     /**
-     * DELETE /pet/:id
-     * Haustier löschen
+     * Adotion löschen
      */
     async delete(req, res, next) {
         await this._service.delete(req.params.id)

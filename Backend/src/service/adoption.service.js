@@ -4,9 +4,9 @@ import DatabaseFactory from "../database.js";
 import {ObjectId} from "mongodb";
 
 /**
- * Geschäftslogik zur Verwaltung von Haustieren. Diese Klasse implementiert die
+ * Geschäftslogik zur Verwaltung von Adoptionen. Diese Klasse implementiert die
  * eigentliche Anwendungslogik losgelöst vom technischen Übertragungsweg.
- * Die Haustiere werden der Einfachheit halber in einer MongoDB abgelegt.
+ * Die Adoptionen werden der Einfachheit halber in einer MongoDB abgelegt.
  */
 export default class AdoptionService {
     /**
@@ -17,13 +17,13 @@ export default class AdoptionService {
     }
 
     /**
-     * Haustiere suchen. Unterstützt wird lediglich eine ganz einfache Suche,
+     * Adoptionen suchen. Unterstützt wird lediglich eine ganz einfache Suche,
      * bei der einzelne Felder auf exakte Übereinstimmung geprüft werden.
      * Zwar unterstützt MongoDB prinzipiell beliebig komplexe Suchanfragen.
      * Um das Beispiel klein zu halten, wird dies hier aber nicht unterstützt.
      *
      * @param {Object} query Optionale Suchparameter
-     * @return {Promise} Liste der gefundenen Adressen
+     * @return {Promise} Liste der gefundenen Adoptionen
      */
     async search(query) {
         let cursor = this._adoptions.find(query, {
@@ -37,10 +37,10 @@ export default class AdoptionService {
     }
 
     /**
-     * Speichern eines neuen Benutzer.
+     * Speichern einer neuen Adoption.
      *
-     * @param {Object} user Zu speicherndes Haustier
-     * @return {Promise} Gespeicherte Haustier
+     * @param {Object} adoption Zu speichernde Adoption
+     * @return {Promise} Gespeicherte Adoption
      */
     async create(adoption) {
         adoption = adoption || {};
@@ -56,10 +56,10 @@ export default class AdoptionService {
     }
 
     /**
-     * Auslesen eines vorhandenen Besitzers anhand der ID.
+     * Auslesen einer vorhandenen Adoption anhand der ID.
      *
-     * @param {String} id ID des gesuchten Users
-     * @return {Promise} Gefundener User
+     * @param {String} id ID der gesuchten Adoption
+     * @return {Promise} Gefundene Adoption
      */
     async read(id) {
         let result = await this._adoptions.findOne({_id: new ObjectId(id)});
@@ -67,10 +67,10 @@ export default class AdoptionService {
     }
 
     /**
-     * Aktualisierung eines Users, durch Überschreiben einzelner Felder
+     * Aktualisierung einer Adoption, durch Überschreiben einzelner Felder
      * oder des gesamten bjekts (ohne die ID).
      *
-     * @param {String} id ID des Users
+     * @param {String} id ID der Adoption
      * @param {[type]} user Zu speichernde Daten
      * @return {Promise} Gespeicherte Daten
      */
@@ -91,9 +91,9 @@ export default class AdoptionService {
     }
 
     /**
-     * Löschen eines Users anhand der ID.
+     * Löschen einer Adoption anhand der ID.
      *
-     * @param {String} id ID des Users
+     * @param {String} id ID der Adoption
      * @return {Promise} Anzahl der gelöschten Datensätze
      */
     async delete(id) {

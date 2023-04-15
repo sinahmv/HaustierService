@@ -4,7 +4,7 @@ import Page from "../page.js";
 import HtmlTemplate from "./page-edit-adoption.html";
 
 /**
- * Klasse PageEdit: Stellt die Seite zum Anlegen oder Bearbeiten einer Adresse
+ * Klasse PageEdit: Stellt die Seite zum Anlegen oder Bearbeiten einer Adoption
  * zur Verfügung.
  */
 export default class PageEditAdoption extends Page {
