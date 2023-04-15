@@ -88,7 +88,7 @@ export default class PageList extends Page {
 
         // Datensatz löschen
         try {
-            this._app.backend.fetch("DELETE", `/animal/${id}`); 
+            this._app.backend.fetch("DELETE", `/pet/${id}`); 
         } catch (ex) {
             this._app.showException(ex);
             return;
