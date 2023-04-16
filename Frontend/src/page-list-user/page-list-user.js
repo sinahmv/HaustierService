@@ -70,14 +70,11 @@ export default class PageListUser extends Page {
             liElement.querySelector(".action.delete").addEventListener("click", () => this._askDelete(dataset._id));
         }
 
-        //// TODO: Anzuzeigende Inhalte laden mit this._app.backend.fetch() ////
-        //// TODO: Inhalte in die HTML-Struktur einarbeiten ////
-        //// TODO: Neue Methoden für Event Handler anlegen und hier registrieren ////
     }
 
      /**
-     * Löschen der übergebenen Adresse. Zeigt einen Popup, ob der Anwender
-     * die Adresse löschen will und löscht diese dann.
+     * Löschen des übergebenden Benutzers. Zeigt einen Popup, ob der Anwender
+     * den Benutzer löschen will und löscht diese dann.
      *
      * @param {Integer} id ID des zu löschenden Datensatzes
      */

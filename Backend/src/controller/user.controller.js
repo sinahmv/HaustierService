@@ -5,9 +5,9 @@ import {wrapHandler} from "../utils.js";
 import RestifyError from "restify-errors";
 
 /**
- * HTTP-Controller-Klasse für Haustiereinträge. Diese Klasse registriert
+ * HTTP-Controller-Klasse für Benutzereinträge. Diese Klasse registriert
  * alle notwendigen URL-Handler beim Webserver für einen einfachen REST-
- * Webservice zum Lesen und Schreiben von Haustiereinträgen.
+ * Webservice zum Lesen und Schreiben von Benutzereinträgen.
  */
 export default class UserController {
     /**
@@ -52,8 +52,8 @@ export default class UserController {
     
 
     /**
-     * GET /pet
-     * Haustier suchen
+     * GET /user
+     * User suchen
      */
     async search(req, res, next) {
         let result = await this._service.search(req.query);
@@ -63,8 +63,8 @@ export default class UserController {
     }
 
     /**
-     * POST /pet
-     * Neues Haustier anlegen
+     * POST /user
+     * Neuen User anlegen
      */
     async create(req, res, next) {
         let result = await this._service.create(req.body);
@@ -77,8 +77,8 @@ export default class UserController {
         return next();
     }
     /**
-     * GET /pet/:id
-     * Haustier auslesen
+     * GET /user/:id
+     * User auslesen
      */
     async read(req, res, next) {
         let result = await this._service.read(req.params.id);
@@ -94,9 +94,9 @@ export default class UserController {
     }
 
     /**
-     * PUT /pet/:id
-     * PATCH /pet/:id
-     * Haustier ändern
+     * PUT /user/:id
+     * PATCH /user/:id
+     * User ändern
      */
     async update(req, res, next) {
         let result = await this._service.update(req.params.id, req.body);
@@ -113,8 +113,8 @@ export default class UserController {
     }
 
     /**
-     * DELETE /pet/:id
-     * Haustier löschen
+     * DELETE /user/:id
+     * User löschen
      */
     async delete(req, res, next) {
         await this._service.delete(req.params.id)

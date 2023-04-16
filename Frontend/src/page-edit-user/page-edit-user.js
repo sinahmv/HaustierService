@@ -4,7 +4,7 @@ import Page from "../page.js";
 import HtmlTemplate from "./page-edit-user.html";
 
 /**
- * Klasse PageEdit: Stellt die Seite zum Anlegen oder Bearbeiten einer Adresse
+ * Klasse PageEdit: Stellt die Seite zum Anlegen oder Bearbeiten eines Benutzers
  * zur Verfügung.
  */
 export default class PageEditUser extends Page {
